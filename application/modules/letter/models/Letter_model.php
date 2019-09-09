@@ -18,6 +18,8 @@ class Letter_model extends CI_Model
         $this->db->select('letters.uke_4_id, uke_4_name');
         $this->db->select('uke_4.uke_3_id, uke_3_name');
         $this->db->select('uke_3.uke_2_id, uke_2_name');
+        $this->db->select('letters.type_id, type_name');
+        $this->db->join('type_letter', 'type_letter.type_id = letters.type_id', 'left');
         $this->db->join('uke_4', 'uke_4.uke_4_id = letters.uke_4_id', 'left');
         $this->db->join('uke_3', 'uke_3.uke_3_id = uke_4.uke_3_id', 'left');
         $this->db->join('uke_2', 'uke_2.uke_2_id = uke_3.uke_2_id', 'left');

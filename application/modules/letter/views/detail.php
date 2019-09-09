@@ -3,6 +3,11 @@
         <div class="table-respinsive">
             <table class="table table-hover">
                 <tr>
+                    <td>Jenis Surat</td>
+                    <td>:</td>
+                    <td><?php echo $letter->type_name; ?></td>
+                </tr>
+                <tr>
                     <td>UKE II</td>
                     <td>:</td>
                     <td><?php echo $letter->uke_2_name; ?></td>
@@ -46,7 +51,7 @@
                 <?php endif ?>
             </table>
             <a href="<?php echo site_url('letter') ?>" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
-            <?php if ($letter->letter_status == 0) : ?>
+            <?php if ($letter->letter_status == 0 && $this->role_id == 1) : ?>
                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#approval"><i class="fa fa-list"></i> Opsi</button>
             <?php endif ?>
         </div>

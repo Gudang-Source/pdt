@@ -13,6 +13,7 @@ class MY_Controller extends CI_Controller {
         $this->uid           		= $this->user_data['uid'];
         $this->ukeid           		= $this->user_data['ukeid'];
         $this->fullname		   	    = $this->user_data['fullname'];
+        $this->role_id		   	    = $this->user_data['role_id'];
     }
 
 }

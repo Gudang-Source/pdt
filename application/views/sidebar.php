@@ -22,23 +22,31 @@
                         <span> Pengajuan Surat </span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="mdi mdi-folder-multiple"></i>
-                        <span> Master Data </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="<?php echo site_url('type') ?>">Jenis Surat</a></li>
-                        <li><a href="<?php echo site_url('uke') ?>">Unit Kerja Eselon</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('user') ?>">
-                        <i class="mdi mdi-account-card-details"></i>
-                        <span> Management Users </span>
-                    </a>
-                </li>
+                <?php if ($this->role_id == 1) : ?>
+                    <li>
+                        <a href="<?php echo site_url('rule') ?>">
+                            <i class="mdi mdi-account-card-details"></i>
+                            <span> Lumbung Data </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);">
+                            <i class="mdi mdi-folder-multiple"></i>
+                            <span> Master Data </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li><a href="<?php echo site_url('type') ?>">Jenis Surat</a></li>
+                            <li><a href="<?php echo site_url('uke') ?>">Unit Kerja Eselon</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="<?php echo site_url('user') ?>">
+                            <i class="mdi mdi-account-card-details"></i>
+                            <span> Management Users </span>
+                        </a>
+                    </li>
+                <?php endif ?>
 
             </ul>
         </div>

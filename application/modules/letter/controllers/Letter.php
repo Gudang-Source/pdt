@@ -8,6 +8,7 @@ class Letter extends MY_Controller
     {
         parent::__construct();
         $this->load->model('letter/Letter_model');
+        $this->load->model('type/Type_model');
         $this->load->model('uke/Uke_model');
     }
 
@@ -15,7 +16,18 @@ class Letter extends MY_Controller
     {
         $this->load->library('pagination');
         $page = $this->input->get('per_page');
+        $q = $this->input->get(NULL, TRUE);
+        $data['q'] = $q;
 
+        $params = array();
+        
+        if($this->role_id != 1) {
+            $params['user_id'] = $this->uid;
+        }
+        if (isset($q['status']) && $q['status'] != '') {
+            $params['letter_status'] = $q['status'];
+        }
+        
         $limit = 5;
 
         if (!$page) :
@@ -29,12 +41,14 @@ class Letter extends MY_Controller
         $config['query_string_segment'] = 'per_page';
         $config['base_url'] = site_url('letter');
         $config['per_page'] = $limit;
-        $config['total_rows'] = $this->Letter_model->get()->num_rows();
+        $config['total_rows'] = $this->Letter_model->get($params)->num_rows();
         $this->pagination->initialize($config);
 
         $data['jlhpage'] = $page;
-        $data['letter'] = $this->Letter_model->get(null, $limit, $offset)->result();
-
+        if ($this->role_id == 1) {
+            $data['uke2'] = $this->Uke_model->get_uke2()->result();
+        }
+        $data['letter'] = $this->Letter_model->get($params, $limit, $offset)->result();
         $data['title'] = 'Pengajuan Surat';
         $data['main'] = 'letter/index';
         $this->load->view('layout', $data);
@@ -43,6 +57,7 @@ class Letter extends MY_Controller
     function add()
     {
         $this->form_validation->set_rules('fullname', 'Name', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('type_id', 'Jenis Surat', 'trim|required|xss_clean');
         $this->form_validation->set_rules('phone', 'Nomor Tlp/Handphone', 'trim|required|xss_clean');
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><button position="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>', '</div>');
 
@@ -59,11 +74,16 @@ class Letter extends MY_Controller
                 $no_trx = $nomor . '/PDT-' . date('Ym');
             }
 
-            $params['uke_4_id'] = $this->ukeid;
-            $params['letter_no'] = $no_trx;
+            if($this->role_id == 1){
+                $params['uke_4_id'] = $this->input->post('uke_4_id');
+            } else {
+                $params['uke_4_id'] = $this->ukeid;
+            }
             
+            $params['letter_no'] = $no_trx;
             $params['letter_fullname'] = $this->input->post('fullname');
             $params['letter_phone'] = $this->input->post('phone');
+            $params['type_id'] = $this->input->post('type_id');
             $params['user_id'] = $this->uid;
             $params['user_fullname'] = $this->fullname;
 
@@ -76,7 +96,11 @@ class Letter extends MY_Controller
             redirect('letter');
 
         } else {
-            $data['uke'] = $this->Uke_model->get_uke(['uke_4_id' => $this->ukeid])->row();
+            if($this->role_id == 1) {
+                $data['uke2'] = $this->Uke_model->get_uke2()->result();
+            }
+            $data['uke'] = $this->Uke_model->get_uke(['uke_4_id' => $this->ukeid])->row();            
+            $data['type'] = $this->Type_model->get()->result();            
             $data['title'] = 'Tambah Pengajuan Surat';
             $data['main'] = 'letter/add';
             $this->load->view('layout', $data);
@@ -85,20 +109,26 @@ class Letter extends MY_Controller
 
     function detail($id = null)
     {
+        $letter = $this->Letter_model->get(['letter_id' => $id])->row();
         if($_POST) {
+            if($this->role_id != 1) redirect('letter');
             $params['letter_status'] = $this->input->post('status');
             if($params['letter'] == 1) {
                 $params['letter_approval_date'] = date('Y-m-d H:i:s');
             }
-            $full = 'SC_' . time() . rand(1111, 9999);
-            if (!empty($_FILES['letter_file']['name'])) {
-                $params['letter_file'] = $this->upload_file('letter_file', $full);
+            if($this->input->post('cek')) {
+                $path_to_file = 'uploads/submit/' . $letter->letter_file;
+                unlink($path_to_file);
+                $full = 'SC_' . time() . rand(1111, 9999);
+                if (!empty($_FILES['letter_file']['name'])) {
+                    $params['letter_file'] = $this->upload_file('letter_file', $full);
+                }
             }
             $this->Letter_model->update($params, ['letter_id' => $id]);
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
             redirect('letter');
         } else {
-            $data['letter'] = $this->Letter_model->get(['letter_id' => $id])->row();
+            $data['letter'] = $letter;
             $data['title'] = 'Detail Pengajuan Surat';
             $data['main'] = 'letter/detail';
             $this->load->view('layout', $data);

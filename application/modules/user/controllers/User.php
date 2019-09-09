@@ -7,6 +7,7 @@ class User extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		if ($this->role_id != 1) redirect('home');
 		$this->load->model('user/User_model');
 		$this->load->model('uke/Uke_model');
 		$this->load->library('form_validation');

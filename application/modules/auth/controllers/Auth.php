@@ -48,6 +48,7 @@ class Auth extends CI_Controller
 						'ukeid' => $user->uke_4_id,
 						'username' => $user->username,
 						'fullname' => $user->user_fullname,
+						'role_id' => $user->role_id
 					],
 					'logged' => TRUE
 				];
