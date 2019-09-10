@@ -125,7 +125,7 @@ class Letter extends MY_Controller
         if($_POST) {
             if($this->role_id != 1) redirect('letter');
             $params['letter_status'] = $this->input->post('status');
-            if($params['letter'] == 1) {
+            if($params['letter_status'] == 1) {
                 $params['letter_approval_date'] = date('Y-m-d H:i:s');
             }
             if($this->input->post('cek')) {
