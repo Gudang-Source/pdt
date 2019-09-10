@@ -18,14 +18,14 @@
                 </li>
                 <li>
                     <a href="<?php echo site_url('letter') ?>">
-                        <i class="mdi mdi-view-dashboard"></i>
+                        <i class="mdi mdi-email-open"></i>
                         <span> Pengajuan Surat </span>
                     </a>
                 </li>
                 <?php if ($this->role_id == 1) : ?>
                     <li>
                         <a href="<?php echo site_url('rule') ?>">
-                            <i class="mdi mdi-account-card-details"></i>
+                            <i class="mdi mdi-database"></i>
                             <span> Lumbung Data </span>
                         </a>
                     </li>
@@ -43,7 +43,7 @@
                     <li>
                         <a href="<?php echo site_url('user') ?>">
                             <i class="mdi mdi-account-card-details"></i>
-                            <span> Management Users </span>
+                            <span> Pengguna </span>
                         </a>
                     </li>
                 <?php endif ?>

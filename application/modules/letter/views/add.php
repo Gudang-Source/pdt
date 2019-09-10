@@ -4,15 +4,6 @@
             <div class="row">
                 <div class="col-md-9">
                     <?php echo validation_errors(); ?>
-                    <div class="form-group">
-                        <label for="">Jenis Surat <span class="text-danger">*</span></label>
-                        <select id="type_id" name="type_id" class="form-control">
-                            <option value="">--- Pilih Jenis Surat ---</option>
-                            <?php foreach ($type as $row) : ?>
-                                <option value="<?php echo $row->type_id ?>"><?php echo $row->type_name ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                     <?php if ($this->role_id == 1) : ?>
                         <div class="form-group">
                             <label for="">UKE II <span class="text-danger">*</span></label>
@@ -44,9 +35,18 @@
                         </div>
                         <div class="form-group">
                             <label for="username">UKE IV</label>
-                            <input type="text" name="uke_4_id"lass="form-control" id="uke4" value="<?php echo $uke->uke_4_name ?>" disabled="disable">
+                            <input type="text" name="uke_4_id" lass="form-control" id="uke4" value="<?php echo $uke->uke_4_name ?>" disabled="disable">
                         </div>
                     <?php endif ?>
+                    <div class="form-group">
+                        <label for="">Jenis Surat <span class="text-danger">*</span></label>
+                        <select id="type_id" name="type_id" class="form-control">
+                            <option value="">--- Pilih Jenis Surat ---</option>
+                            <?php foreach ($type as $row) : ?>
+                                <option value="<?php echo $row->type_id ?>"><?php echo $row->type_name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="username">Nama <span class="text-danger">*</span></label>
                         <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Nama Pengaju" autocomplete="off" required>

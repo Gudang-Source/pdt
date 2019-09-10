@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <select name="uke2" id="uke_2_id" class="form-control form-control-sm">
+                    <select name="uke_2" id="uke_2_id" class="form-control form-control-sm">
                         <option value="">--- UKE II ---</option>
                         <?php foreach ($uke2 as $row) : ?>
                             <option value="<?php echo $row->uke_2_id ?>"><?php echo $row->uke_2_name ?></option>
@@ -26,7 +26,7 @@
                         <th>UKE II</th>
                         <th>Nomor Peraturan</th>
                         <th>Tahun Peraturan</th>
-                        <th>Tentang</th>
+                        <th>Status</th>
                         <th>Opsi</th>
                     </tr>
                 </thead>
@@ -41,9 +41,11 @@
                                 <td><?php echo $row->uke_2_name ?></td>
                                 <td><?php echo $row->rule_no ?></td>
                                 <td><?php echo $row->rule_year ?></td>
-                                <td><?php echo $row->about ?></td>
+                                <td><span class="badge badge-<?php echo ($row->rule_status) ? 'success' : 'warning' ?>"><?php echo ($row->rule_status) ? 'Publish' : 'Draft' ?></span></td>
                                 <td>
+                                    <a href="<?php echo site_url('rule/edit/' . $row->rule_id) ?>" class="btn btn-success btn-xs"><i class="fas fa-edit"></i> Edit</a>
                                     <a href="<?php echo site_url('rule/detail/' . $row->rule_id) ?>" class="btn btn-info btn-xs"><i class="fas fa-eye"></i> Detail</a>
+
                                 </td>
                             </tr>
                         <?php endforeach;
