@@ -80,11 +80,10 @@ if (!function_exists('is_page')) {
 }
 
 if (!function_exists('page_url')) {
-
-  function page_url($page = array()) {
-    return site_url('page/' . $page['page_id'] . '/' . url_title($page['page_name'], '-', TRUE) . '.html');
+  function page_url($rules = array())
+  {
+    return site_url('home/detail/' . $rules['rule_id'] . '/' . url_title($rules['rule_about'], '-', TRUE));
   }
-
 }
 
 if (!function_exists('posts_url')) {
@@ -127,58 +126,5 @@ if (!function_exists('media_url')) {
     return base_url('media/' . $name);
   }
 
-}
-
-function majors() {
-  $CI = & get_instance();
-  $CI->load->model('client/Client_model');
-  $CI->user_data = $CI->session->userdata('user_data');
-  $CI->client_id = $CI->user_data['client_id'];
-  $result = $CI->Client_model->get(['clients.client_id'=>$CI->client_id])->row();
-  return $result->client_level;
-}
-
-function logo() {
-  $CI = & get_instance();
-  $CI->load->model('client/Client_model');
-  $CI->user_data = $CI->session->userdata('user_data');
-  $CI->client_id = $CI->user_data['client_id'];
-  $result = $CI->Client_model->get(['clients.client_id'=>$CI->client_id])->row();
-  return $result->client_logo;
-}
-
-function expired(){
-  $CI = & get_instance();
-  $CI->load->model('client/Client_model');
-  $CI->user_data = $CI->session->userdata('user_data');
-  $CI->client_id = $CI->user_data['client_id'];
-
-  $profile = $CI->Client_model->get(['client_id'=>$CI->client_id])->row();
-  $now = date('Y-m-d');
-  $expired = $profile->client_due_date;
-
-  if($expired < $now){
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function validUntil(){
-  $CI = & get_instance();
-  $CI->load->model('client/Client_model');
-  $CI->user_data = $CI->session->userdata('user_data');
-  $CI->client_id = $CI->user_data['client_id'];
-
-  $profile = $CI->Client_model->get(['client_id'=>$CI->client_id])->row();
-  $now = date('Y-m-d');
-  $expired = $profile->client_due_date; 
-  $valid = strtotime($expired) - strtotime($now); 
-
-  if($valid/(24*60*60)<8) {
-    return true;
-  } else {
-    return false;
-  }
 }
 

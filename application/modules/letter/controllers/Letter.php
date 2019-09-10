@@ -27,6 +27,18 @@ class Letter extends MY_Controller
         if (isset($q['status']) && $q['status'] != '') {
             $params['letter_status'] = $q['status'];
         }
+
+        if (isset($q['uke2']) && $q['uke2'] != '') {
+            $params['uke_3.uke_2_id'] = $q['uke2'];
+        }
+
+        if (isset($q['uke3']) && $q['uke3'] != '') {
+            $params['uke_4.uke_3_id'] = $q['uke3'];
+        }
+
+        if (isset($q['uke_4']) && $q['uke_4'] != '') {
+            $params['letters.uke_4_id'] = $q['uke_4'];
+        }
         
         $limit = 5;
 

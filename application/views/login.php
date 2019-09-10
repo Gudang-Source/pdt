@@ -20,6 +20,14 @@
     .error {
       color: red;
     }
+
+    body {
+      background: url('../media/images/map.svg') no-repeat center center fixed;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
   </style>
 
 </head>

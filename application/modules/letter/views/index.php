@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-box">
-        <a href="<?php echo site_url('letter/add') ?>" class="btn btn-primary btn-sm mb-2 float-right"><i class="fa fa-plus"></i> Tambah</a>
+        <a href="<?php echo site_url('letter/add') ?>" class="btn btn-danger btn-sm mb-2 float-right"><i class="fa fa-plus"></i> Tambah</a>
         <?php echo form_open(current_url(), array('method' => 'get')) ?>
         <div class="row">
             <?php if ($this->role_id == 1) : ?>
@@ -30,7 +30,7 @@
             <div class="col">
                 <div class="form-group">
                     <select name="status" id="" class="form-control form-control-sm">
-                        <option value="">--- Status ---</option>
+                        <option value="">--- Semua Status ---</option>
                         <option value="0">Diajukan</option>
                         <option value="1">Disetujui</option>
                         <option value="2">Ditolak</option>

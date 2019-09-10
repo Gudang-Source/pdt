@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-box">
-        <a href="<?php echo site_url('rule/add') ?>" class="btn btn-primary btn-sm mb-2 float-right"><i class="fa fa-plus"></i> Tambah</a>
+        <a href="<?php echo site_url('rule/add') ?>" class="btn btn-danger btn-sm mb-2 float-right"><i class="fa fa-plus"></i> Tambah</a>
         <?php echo form_open(current_url(), array('method' => 'get')) ?>
         <div class="row">
             <div class="col">

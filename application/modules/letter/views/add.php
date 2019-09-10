@@ -26,16 +26,16 @@
                         </div>
                     <?php else : ?>
                         <div class="form-group">
-                            <label for="username">UKE II</label>
+                            <label for="">UKE II</label>
                             <input type="text" class="form-control" id="uke2" value="<?php echo $uke->uke_2_name ?>" disabled="disable">
                         </div>
                         <div class="form-group">
-                            <label for="username">UKE III</label>
+                            <label for="">UKE III</label>
                             <input type="text" class="form-control" id="uke3" value="<?php echo $uke->uke_3_name ?>" disabled="disable">
                         </div>
                         <div class="form-group">
-                            <label for="username">UKE IV</label>
-                            <input type="text" name="uke_4_id" lass="form-control" id="uke4" value="<?php echo $uke->uke_4_name ?>" disabled="disable">
+                            <label for="">UKE IV</label>
+                            <input type="text" name="uke_4_id" class="form-control" id="uke4" value="<?php echo $uke->uke_4_name ?>" disabled="disable">
                         </div>
                     <?php endif ?>
                     <div class="form-group">

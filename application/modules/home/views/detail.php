@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="card-box">
         <div class="table-respinsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-hover">
                 <tr>
-                    <td>UKE II</td>
+                    <td>Instansi</td>
                     <td>:</td>
                     <td><?php echo $rule->uke_2_name; ?></td>
                 </tr>
@@ -29,13 +29,13 @@
                 </tr>
                 <?php if (isset($rule->rule_file)) : ?>
                     <tr>
-                        <td>File Dokumen</td>
+                        <td>Dokumen</td>
                         <td>:</td>
                         <td><a href="<?php echo upload_url('publish/' . $rule->rule_file) ?>" class="text-danger" target="_blank"><i class="mdi mdi-file-pdf"></i> <?php echo $rule->rule_file; ?></a></td>
                     </tr>
                 <?php endif ?>
             </table>
-            <a href="<?php echo site_url('rule') ?>" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
+            <a href="<?php echo site_url('home') ?>" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
         </div>
     </div>
 </div>
