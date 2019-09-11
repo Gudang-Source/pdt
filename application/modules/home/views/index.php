@@ -35,7 +35,11 @@
 										<td><?php echo $row['uke_2_name'] ?></td>
 										<td><?php echo $row['rule_no'] ?></td>
 										<td><a href="<?php echo page_url($row) ?>" class="text-danger"><?php echo $row['rule_about'] ?></a></td>
-										<td><a href="<?php echo upload_url('publish/' . $row['rule_file']) ?>" class="text-danger"><i class="mdi mdi-file-pdf" style="font-size:25px"></i></a></td>
+										<td>
+											<?php if(isset($row['rule_file'])): ?>
+											<a href="<?php echo upload_url('publish/' . $row['rule_file']) ?>" class="text-danger"><i class="mdi mdi-file-pdf" style="font-size:25px"></i></a>
+											<?php endif ?>
+										</td>
 									</tr>
 								<?php endforeach;
 								} else {
