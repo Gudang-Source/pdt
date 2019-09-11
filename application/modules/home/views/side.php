@@ -1,8 +1,8 @@
 <form action="" method="get">
     <div class="form-group">
-        <label for="uke_2">Pilih Kementrian</label>
+        <label for="uke_2">Pilih Unit Kerja</label>
         <select name="uke_2" id="uke_2" class="form-control">
-            <option value="">-- Semua Kementrian --</option>
+            <option value="">-- Semua Unit Kerja --</option>
             <?php foreach ($uke2 as $row) : ?>
                 <option value="<?php echo $row->uke_2_id ?>" <?php echo (isset($q['uke_2']) && $q['uke_2'] == $row->uke_2_id) ? 'selected' : '' ?>><?php echo $row->uke_2_name ?></option>
             <?php endforeach; ?>

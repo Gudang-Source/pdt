@@ -45,7 +45,7 @@ class Auth extends CI_Controller
 				$session = [
 					'user_data' => [
 						'uid' => $user->user_id,
-						'ukeid' => $user->uke_4_id,
+						'ukeid' => $user->uke_3_id,
 						'username' => $user->username,
 						'fullname' => $user->user_fullname,
 						'role_id' => $user->role_id

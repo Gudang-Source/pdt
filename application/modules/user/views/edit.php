@@ -28,11 +28,6 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">UKE IV <span class="text-danger">*</span></label>
-                        <select id="uke_4_id" name="uke_4_id" class="form-control">
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="">Deskripsi</label>
                         <textarea name="desc" id="desc" class="form-control" placeholder="Deskripsi"><?php echo $user->user_desc ?></textarea>
                     </div>
@@ -65,22 +60,6 @@
                         $("select#uke_3_id").html('<option value="">--Pilih UKE III--</option>');
                     } else {
                         $("select#uke_3_id").html(msg);
-                    }
-                }
-            });
-        });
-        $("#uke_3_id").change(function() {
-            var uke_3_id = $(this).val();
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "<?php echo site_url('user/getUke4') ?>",
-                data: "uke_3_id=" + uke_3_id,
-                success: function(msg) {
-                    if (msg == '') {
-                        $("select#uke_4_id").html('<option value="">--Pilih UKE IV--</option>');
-                    } else {
-                        $("select#uke_4_id").html(msg);
                     }
                 }
             });

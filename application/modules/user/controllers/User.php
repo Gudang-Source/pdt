@@ -17,7 +17,6 @@ class User extends MY_Controller
 	{
 
 		$data['user'] = $this->User_model->get()->result();
-		
 		$data['title'] = 'Daftar Pengguna';
 		$data['main'] = 'user/index';
 		$this->load->view('layout', $data);
@@ -28,7 +27,7 @@ class User extends MY_Controller
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[users.username]|xss_clean');
 		$this->form_validation->set_rules('fullname', 'Name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('status', 'Status', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('uke_4_id', 'UKE', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('uke_3_id', 'UKE', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[passconf]|min_length[6]');
 		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[6]');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><button position="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>', '</div>');
@@ -38,7 +37,7 @@ class User extends MY_Controller
 			$params['username'] = $this->input->post('username');
 			$params['user_password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 			$params['user_fullname'] = $this->input->post('fullname');
-			$params['uke_4_id'] = $this->input->post('uke_4_id');
+			$params['uke_3_id'] = $this->input->post('uke_3_id');
 			$params['role_id'] = 2;
 			$params['user_status'] = $this->input->post('status');
 			$params['user_desc'] = $this->input->post('desc');
@@ -78,13 +77,13 @@ class User extends MY_Controller
 		
 		$this->form_validation->set_rules('fullname', 'Name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('status', 'Status', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('uke_4_id', 'UKE', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('uke_3_id', 'UKE', 'trim|required|xss_clean');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><button position="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>', '</div>');
 
 		if ($_POST and $this->form_validation->run() == TRUE) {
 
 			$params['user_fullname'] = $this->input->post('fullname');
-			$params['uke_4_id'] = $this->input->post('uke_4_id');
+			$params['uke_3_id'] = $this->input->post('uke_3_id');
 			$params['user_status'] = $this->input->post('status');
 			$params['user_desc'] = $this->input->post('desc');
 			$this->User_model->update($params, ['user_id' => $id]);
@@ -116,6 +115,46 @@ class User extends MY_Controller
 		} else {
 			$data['title'] = 'Reset Password';
 			$data['main'] = 'user/rpw';
+			$this->load->view('layout', $data);
+		}
+	}
+
+	function import()
+	{
+		if ($_POST) {
+
+			$rows = explode("\n", $this->input->post('rows'));
+			$success = 0;
+			$failled = 0;
+			$exist = 0;
+			foreach ($rows as $row) {
+
+				$exp = explode("\t", $row);
+				if (count($exp) != 4) continue;
+
+				$arr['uke_3_id'] = trim($exp[0]);
+				$arr['username'] = trim($exp[1]);
+				$arr['user_password'] = password_hash(trim($exp[2]), PASSWORD_DEFAULT);
+				$arr['user_fullname'] = trim($exp[3]);
+				$arr['role_id'] = 2;
+				$arr['user_status'] = 1;
+				$this->User_model->insert($arr);
+				// $check = $this->User_model->get(['username' => $arr['username']])->row();
+
+				// if (isset($check)) {
+				// 	$status = 
+				// 	$success++;
+				// } else {
+				// 	$exist++;
+				// }
+			}
+			$msg = 'Sukses : ' . $success . ' baris, Gagal : ' . $failled . ', Duplikat : ' . $exist;
+			$this->session->set_flashdata('success', $msg);
+			redirect('user');
+		} else {
+
+			$data['title'] = 'Import User';
+			$data['main']  = 'user/import';
 			$this->load->view('layout', $data);
 		}
 	}

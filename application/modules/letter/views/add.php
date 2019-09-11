@@ -31,11 +31,16 @@
                         </div>
                         <div class="form-group">
                             <label for="">UKE III</label>
-                            <input type="text" class="form-control" id="uke3" value="<?php echo $uke->uke_3_name ?>" disabled="disable">
+                            <input type="text" class="form-control" value="<?php echo $uke->uke_3_name ?>" disabled="disable">
                         </div>
                         <div class="form-group">
-                            <label for="">UKE IV</label>
-                            <input type="text" name="uke_4_id" class="form-control" id="uke4" value="<?php echo $uke->uke_4_name ?>" disabled="disable">
+                            <label for="">UKE IV <span class="text-danger">*</span></label>
+                            <select id="uke_4_id" name="uke_4_id" class="form-control">
+                                <option value="">-- Pilih UKE IV --</option>
+                                <?php foreach ($uke4 as $row) : ?>
+                                    <option value="<?php echo $row->uke_4_id ?>"><?php echo $row->uke_4_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     <?php endif ?>
                     <div class="form-group">

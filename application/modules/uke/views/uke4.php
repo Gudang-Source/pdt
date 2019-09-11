@@ -46,7 +46,7 @@
                 <h4 class="modal-title" id="titleModal">Tambah <?php echo $title ?></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
-            <form id="form" action="<?php echo site_url('uke/add_uke4/'. $row->uke_3_id) ?>" method="post">
+            <form id="form" action="<?php echo site_url('uke/add_uke_4/'. $uke3) ?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="_id">
                     <div class="form-group">
@@ -68,7 +68,7 @@
         $('.btnAdd').on('click', function() {
             $('#titleModal').html('Tambah <?php echo $title ?>');
             $('.modal-footer button[type=submit]').html('Simpan');
-            $('#form').attr('action', '<?php echo site_url('uke/add_uke4/'. $row->uke_3_id) ?>');
+            $('#form').attr('action', '<?php echo site_url('uke/add_uke_4/'. $uke3) ?>');
             $('#uke_name').val('');
             $('#_id').val('');
 
@@ -79,7 +79,7 @@
             var type = $(this).attr('data-name');
             $('#titleModal').html('Ubah <?php echo $title ?>');
             $('.modal-footer button[type=submit]').html('Ubah');
-            $('#form').attr('action', '<?php echo site_url('uke/edit_uke4/'. $row->uke_3_id) ?>');
+            $('#form').attr('action', '<?php echo site_url('uke/edit_uke4/'. $uke3) ?>');
             $('#uke_name').val(type);
             $('#_id').val(id);
         })

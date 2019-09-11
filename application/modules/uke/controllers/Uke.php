@@ -61,6 +61,7 @@ class Uke extends MY_Controller {
         $this->pagination->initialize($config);
 
         $data['jlhpage'] = $page;
+        $data['uke2'] = $id;
         $data['uke'] = $this->Uke_model->get_uke3(['uke_2_id' => $id], $limit, $offset)->result();
 
         $data['title'] = 'Unit Kerja Eselon III';
@@ -91,7 +92,7 @@ class Uke extends MY_Controller {
 
         $data['jlhpage'] = $page;
         $data['uke'] = $this->Uke_model->get_uke4(['uke_3_id' => $id], $limit, $offset)->result();
-
+        $data['uke3'] = $id;
         $data['title'] = 'Unit Kerja Eselon IV';
         $data['main'] = 'uke/uke4';
         $this->load->view('layout', $data);

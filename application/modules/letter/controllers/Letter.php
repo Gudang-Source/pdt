@@ -86,13 +86,8 @@ class Letter extends MY_Controller
                 $no_trx = $nomor . '/PDT-' . date('Ym');
             }
 
-            if($this->role_id == 1){
-                $params['uke_4_id'] = $this->input->post('uke_4_id');
-            } else {
-                $params['uke_4_id'] = $this->ukeid;
-            }
-            
             $params['letter_no'] = $no_trx;
+            $params['uke_4_id'] = $this->input->post('uke_4_id');
             $params['letter_fullname'] = $this->input->post('fullname');
             $params['letter_phone'] = $this->input->post('phone');
             $params['type_id'] = $this->input->post('type_id');
@@ -110,6 +105,8 @@ class Letter extends MY_Controller
         } else {
             if($this->role_id == 1) {
                 $data['uke2'] = $this->Uke_model->get_uke2()->result();
+            } else {
+                $data['uke4'] = $this->Uke_model->get_uke4(['uke_3_id' => $this->ukeid])->result();
             }
             $data['uke'] = $this->Uke_model->get_uke(['uke_4_id' => $this->ukeid])->row();            
             $data['type'] = $this->Type_model->get()->result();            

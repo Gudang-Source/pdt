@@ -10,7 +10,6 @@
             <th>Fullname</th>
             <th>UKE II</th>
             <th>UKE III</th>
-            <th>UKE IV</th>
             <th>Opsi</th>
           </tr>
         </thead>
@@ -25,7 +24,6 @@
               <td><?php echo $row->user_fullname ?></td>
               <td><?php echo $row->uke_2_name ?></td>
               <td><?php echo $row->uke_3_name ?></td>
-              <td><?php echo $row->uke_4_name ?></td>
               <td>
                 <a href="<?php echo site_url('user/edit/' . $row->user_id) ?>" class="btn btn-info btn-xs "><i class="fa fa-edit"></i> Ubah</a>
                 <a href="<?php echo site_url('user/rpw/' . $row->user_id) ?>" class="btn btn-warning btn-xs "><i class="fa fa-unlock"></i> Reset Password</a>
