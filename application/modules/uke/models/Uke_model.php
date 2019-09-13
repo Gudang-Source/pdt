@@ -11,7 +11,15 @@ class Uke_model extends CI_Model
         $this->db->select('uke_3.uke_2_id, uke_2_name');
         $this->db->join('uke_3', 'uke_3.uke_3_id = uke_4.uke_3_id', 'left');
         $this->db->join('uke_2', 'uke_2.uke_2_id = uke_3.uke_2_id', 'left');
-        return $this->db->get_where('uke_4', $arr, $limit, $offset);
+        return $this->db->get_where('uke_3', $arr, $limit, $offset);
+    }
+
+    function get_uke_letter($arr = null, $limit = null, $offset = null)
+    {
+        $this->db->select('uke_3.uke_2_id, uke_2_name');
+        $this->db->select('uke_3.uke_3_id, uke_3_name');
+        $this->db->join('uke_2', 'uke_2.uke_2_id = uke_3.uke_2_id', 'left');
+        return $this->db->get_where('uke_3', $arr, $limit, $offset);
     }
 
     function get_uke2($arr = null, $limit = null, $offset = null)
@@ -22,7 +30,7 @@ class Uke_model extends CI_Model
     function get_uke3($arr = null, $limit = null, $offset = null)
     {
         return $this->db->get_where('uke_3', $arr, $limit, $offset);
-    }
+    } 
 
     function get_uke4($arr = null, $limit = null, $offset = null)
     {

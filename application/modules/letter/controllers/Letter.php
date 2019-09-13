@@ -108,7 +108,14 @@ class Letter extends MY_Controller
             } else {
                 $data['uke4'] = $this->Uke_model->get_uke4(['uke_3_id' => $this->ukeid])->result();
             }
-            $data['uke'] = $this->Uke_model->get_uke(['uke_4_id' => $this->ukeid])->row();            
+            $data['uke'] = $this->Uke_model->get_uke_letter(['uke_3_id' => $this->ukeid])->row();     
+            
+            
+            // echo "<pre>";
+            // print_r ($data['uke']);
+            // echo "</pre>";
+            // die();
+            
             $data['type'] = $this->Type_model->get()->result();            
             $data['title'] = 'Tambah Pengajuan Surat';
             $data['main'] = 'letter/add';

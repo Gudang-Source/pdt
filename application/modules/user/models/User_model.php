@@ -6,7 +6,7 @@ class User_model extends CI_Model {
 	function __construct() {
         parent::__construct();
     }
-
+ 
     function get($arr=null, $limit=null, $offset=null){
         $this->db->join('uke_3', 'uke_3.uke_3_id = users.uke_3_id', 'left');
         $this->db->join('uke_2', 'uke_2.uke_2_id = uke_3.uke_2_id', 'left');
