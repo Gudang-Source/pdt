@@ -42,6 +42,7 @@ class Type extends MY_Controller {
 
 	function add(){
 		$data['type_name'] = htmlspecialchars($this->input->post('type_name'));
+		$data['type_status'] = htmlspecialchars($this->input->post('type_status'));
 
 		$status = $this->Type_model->insert($data);
 
@@ -57,6 +58,7 @@ class Type extends MY_Controller {
 	function edit(){
 		$id = $this->input->post('id');
 		$data['type_name'] = htmlspecialchars($this->input->post('type_name'));
+		$data['type_status'] = htmlspecialchars($this->input->post('type_status'));
 
 		$status = $this->Type_model->update($data, ['type_id'=>$id]);
 

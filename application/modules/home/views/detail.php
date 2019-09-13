@@ -1,11 +1,16 @@
 <div class="container-fluid">
     <div class="card-box">
         <div class="table-respinsive">
-            <table class="table table-hover">
+            <table class="table table-striped table-hover">
                 <tr>
-                    <td>Instansi</td>
+                    <td>Unit Kerja</td>
                     <td>:</td>
                     <td><?php echo $rule->uke_2_name; ?></td>
+                </tr>
+                <tr>
+                    <td>Jenis SK</td>
+                    <td>:</td>
+                    <td><?php echo $rule->type_name; ?></td>
                 </tr>
                 <tr>
                     <td>Nomor Peraturan</td>

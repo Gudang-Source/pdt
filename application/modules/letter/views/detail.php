@@ -51,9 +51,48 @@
                 <?php endif ?>
             </table>
             <a href="<?php echo site_url('letter') ?>" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
-            <?php if ($letter->letter_status == 0 && $this->role_id == 1) : ?>
+            <?php if ($this->role_id == 1 && $letter->letter_status == 0 || $letter->letter_status != 2) : ?>
                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#approval"><i class="fa fa-list"></i> Opsi</button>
             <?php endif ?>
+        </div>
+    </div>
+    <div class="card-box">
+        <h4 style="margin-top:-10px">Detail</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light text-center">
+                    <tr>
+                        <th rowspan="2">Tanggal Pengajuan</th>
+                        <th colspan="2">Bagian Hukum</th>
+                        <th colspan="2">Sesditjen</th>
+                        <th colspan="2">KPA</th>
+                        <th colspan="2">Dirjen</th>
+                        <th rowspan="2">Catatan</th>
+                    </tr>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Keterangan</th>
+                        <th>Tanggal</th>
+                        <th>Keterangan</th>
+                        <th>Tanggal</th>
+                        <th>Keterangan</th>
+                        <th>Tanggal</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td><?php echo pretty_date($letter->letter_created_at, 'd F Y H:i', false); ?></td>
+                    <td><?php echo ($letter->letter_hukum_date != null) ? pretty_date($letter->letter_hukum_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                    <td><?php echo ($letter->letter_hukum == 1) ? 'Disetujui' : (($letter->letter_hukum == 2) ? 'Ditolak' : '-'); ?></td>
+                    <td><?php echo ($letter->letter_sesditjen_date != null) ? pretty_date($letter->letter_sesditjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                    <td><?php echo ($letter->letter_sesditjen == 1) ? 'Disetujui' : (($letter->letter_sesditjen == 2) ? 'Ditolak' : '-'); ?></td>
+                    <td><?php echo ($letter->letter_kpa_date != null) ? pretty_date($letter->letter_kpa_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                    <td><?php echo ($letter->letter_kpa == 1) ? 'Disetujui' : (($letter->letter_kpa == 2) ? 'Ditolak' : '-'); ?></td>
+                    <td><?php echo ($letter->letter_dirjen_date != null) ? pretty_date($letter->letter_dirjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                    <td><?php echo ($letter->letter_dirjen == 1) ? 'Disetujui' : (($letter->letter_dirjen == 2) ? 'Ditolak' : '-') ?></td>
+                    <td><?php echo $letter->letter_note; ?></td>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -68,13 +107,53 @@
             <form id="form" action="<?php echo current_url() ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" name="letter_id" value="<?php echo $letter->letter_id ?>" id="_id">
-                    <div class="form-group">
-                        <select name="status" class="status form-control">
-                            <option value="">---Pilih Persetujuan---</option>
-                            <option value="1">Setuju</option>
-                            <option value="2">Tolak</option>
-                        </select>
-                    </div>
+                    <?php if ($letter->letter_hukum == 0) : ?>
+                        <div class="form-group">
+                            <label for="">Bagian Hukum</label>
+                            <select name="hukum" id="hukum" class="status form-control">
+                                <option value="">---Pilih Persetujuan---</option>
+                                <option value="1">Setuju</option>
+                                <option value="2">Tolak</option>
+                            </select>
+                        </div>
+                    <?php endif ?>
+                    <?php if ($letter->letter_hukum == 1) : ?>
+                        <?php if ($letter->letter_sesditjen == 0) : ?>
+                            <div class="form-group">
+                                <label for="">Sesditjen</label>
+                                <select name="sesditjen" id="sesditjen" class="status form-control">
+                                    <option value="">---Pilih Persetujuan---</option>
+                                    <option value="1">Setuju</option>
+                                    <option value="2">Tolak</option>
+                                </select>
+                            </div>
+                        <?php endif ?>
+                    <?php endif ?>
+                    <?php if ($letter->letter_sesditjen == 1) : ?>
+                        <?php if ($letter->letter_kpa == 0) : ?>
+                            <div class="form-group">
+                                <label for="">KPA</label>
+                                <select name="kpa" id="kpa" class="status form-control">
+                                    <option value="">---Pilih Persetujuan---</option>
+                                    <option value="1">Setuju</option>
+                                    <option value="2">Tolak</option>
+                                </select>
+                            </div>
+                        <?php endif ?>
+                    <?php endif ?>
+                    <?php if ($letter->letter_kpa == 1) : ?>
+                        <?php if ($letter->letter_dirjen == 0) : ?>
+                            <div class="form-group">
+                                <label for="">Dirjen</label>
+                                <select name="dirjen" id="dirjen" class="status form-control">
+                                    <option value="">---Pilih Persetujuan---</option>
+                                    <option value="1">Setuju</option>
+                                    <option value="2">Tolak</option>
+                                </select>
+                            </div>
+                        <?php endif ?>
+                    <?php endif ?>
+
                     <div id="koreksi" style="display:none">
                         <div class="form-group">
                             <label for="">Koreksi</label><br>
@@ -87,6 +166,10 @@
                             <label for="">Upload File <span class="text-danger">*</span></label>
                             <input type="file" class="form-control" name="letter_file" id="file">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Catatan</label>
+                        <textarea name="note" id="note" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

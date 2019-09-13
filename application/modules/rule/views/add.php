@@ -8,6 +8,7 @@ if (isset($rule)) {
     $date = $rule->rule_date;
     $status = $rule->rule_status;
     $uke = $rule->uke_2_id;
+    $type = $rule->type_id;
 } else {
     $no = set_value('rule_no');
     $about = set_value('rule_about');
@@ -15,6 +16,7 @@ if (isset($rule)) {
     $date = set_value('rule_date');
     $status = set_value('rule_status');
     $uke = set_value('uke_2_id');
+    $type = set_value('type_id');
 }
 ?>
 <div class="container-fluid">
@@ -24,11 +26,20 @@ if (isset($rule)) {
                 <div class="col-md-9">
                     <?php echo validation_errors(); ?>
                     <div class="form-group">
-                        <label for="">Instansi <span class="text-danger">*</span></label>
+                        <label for="">Unit Kerja <span class="text-danger">*</span></label>
                         <select id="uke_2_id" name="uke_2_id" class="form-control">
-                            <option value="">--- Pilih Instansi ---</option>
+                            <option value="">--- Pilih Unit Kerja ---</option>
                             <?php foreach ($uke2 as $row) : ?>
                                 <option value="<?php echo $row->uke_2_id ?>" <?php echo ($uke == $row->uke_2_id) ? 'selected' : '' ?>><?php echo $row->uke_2_name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jenis Surat <span class="text-danger">*</span></label>
+                        <select id="type_id" name="type_id" class="form-control">
+                            <option value="">--- Pilih Jenis Surat ---</option>
+                            <?php foreach ($tipe as $key) : ?>
+                                <option value="<?php echo $key->type_id ?>" <?php echo ($type == $key->type_id) ? 'selected' : '' ?>><?php echo $key->type_name ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -58,7 +69,7 @@ if (isset($rule)) {
                     <div class="form-group">
                         <label for="">Upload File <span class="text-danger">*</span></label><br>
                         <?php if (isset($rule)) : ?>
-                            <span class="text-danger"><a href="<?php echo upload_url('publish/'. $rule->rule_file) ?>" class="text-danger" target="_blank"><i class="mdi mdi-file-pdf"></i><?php echo $rule->rule_file ?> </a></span>
+                            <span class="text-danger"><a href="<?php echo upload_url('publish/' . $rule->rule_file) ?>" class="text-danger" target="_blank"><i class="mdi mdi-file-pdf"></i><?php echo $rule->rule_file ?> </a></span>
                         <?php endif ?>
                         <input type="file" class="form-control" name="rule_file" id="file">
                     </div>

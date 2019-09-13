@@ -9,6 +9,15 @@
         </select>
     </div>
     <div class="form-group">
+        <label for="sk">Pilih Jenis SK</label>
+        <select name="sk" id="sk" class="form-control">
+            <option value="">-- Semua Jenis SK --</option>
+            <?php foreach ($sk as $row) : ?>
+                <option value="<?php echo $row->type_id ?>" <?php echo (isset($q['sk']) && $q['sk'] == $row->type_id) ? 'selected' : '' ?>><?php echo $row->type_name ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="about">Tentang</label>
         <input type="text" name="about" class="form-control" id="about" autocomplete="off" value="<?php echo isset($q['about']) ? $q['about'] : '' ?>">
     </div>

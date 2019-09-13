@@ -7,6 +7,7 @@ class Rule_model extends CI_Model
     function get($arr = null, $limit = null, $offset = null)
     {
         $this->db->join('uke_2', 'uke_2.uke_2_id = rules.uke_2_id', 'left');
+        $this->db->join('type_letter', 'type_letter.type_id = rules.type_id', 'left');
         return $this->db->get_where('rules', $arr, $limit, $offset);
     }
 

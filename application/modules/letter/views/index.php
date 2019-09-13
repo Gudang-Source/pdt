@@ -67,7 +67,20 @@
                                 <td><?php echo $row->uke_3_name ?></td>
                                 <td><?php echo $row->uke_4_name ?></td>
                                 <td><?php echo $row->letter_no ?></td>
-                                <td><span class="badge badge-<?php echo ($row->letter_status == 1) ? 'success' : (($row->letter_status == 0) ? 'warning' : 'danger')  ?>"><?php echo ($row->letter_status == 1) ? 'Disetujui' : (($row->letter_status == 0) ? 'Diajukan' : 'Ditolak')  ?></span></td>
+                                <td>
+                                    <span class="badge badge-<?php echo ($row->letter_status == 1) ? 'success' : (($row->letter_status == 0) ? 'warning' : 'danger') ?>">
+                                        <?php echo ($row->letter_status == 1) ? 'Disetujui' : (($row->letter_status == 0) ? 'Diajukan' : 'Ditolak')  ?>
+                                        <?php if ($row->letter_code == 1) : ?>
+                                            <?php echo 'Bagian Hukum' ?>
+                                        <?php elseif ($row->letter_code == 2) : ?>
+                                            <?php echo 'Sesditjen' ?>
+                                        <?php elseif ($row->letter_code == 3) : ?>
+                                            <?php echo 'KPA' ?>
+                                        <?php elseif ($row->letter_code == 4) : ?>
+                                            <?php echo 'Dirjen' ?>
+                                        <?php endif ?>
+                                    </span>
+                                </td>
                                 <td>
                                     <a href="<?php echo site_url('letter/detail/' . $row->letter_id) ?>" class="btn btn-info btn-xs"><i class="fas fa-eye"></i> Detail</a>
                                 </td>

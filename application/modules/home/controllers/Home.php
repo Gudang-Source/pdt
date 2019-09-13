@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this->load->model('rule/Rule_model');
 		$this->load->model('uke/Uke_model');
+		$this->load->model('type/Type_model');
 	}
 
 	public function index()
@@ -23,6 +24,10 @@ class Home extends MY_Controller {
 
 		if (isset($q['uke_2']) && $q['uke_2'] != '') {
 			$params['rules.uke_2_id'] = $q['uke_2'];
+		}
+
+		if (isset($q['sk']) && $q['sk'] != '') {
+			$params['rules.type_id'] = $q['sk'];
 		}
 
 		if (isset($q['year']) && $q['year'] != '') {
@@ -56,6 +61,7 @@ class Home extends MY_Controller {
 		$data['jlhpage'] = $page;
 		$data['rules'] = $this->Rule_model->get_rule($params, $limit, $offset, $param)->result_array();
 		$data['uke2'] = $this->Uke_model->get_uke2()->result();
+		$data['sk'] = $this->Type_model->get(['type_status' => 1])->result();
 		$data['title'] = 'Beranda';
 		$data['main'] = 'home/index';
 		$this->load->view('layout', $data);

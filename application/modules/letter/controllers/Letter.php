@@ -20,8 +20,8 @@ class Letter extends MY_Controller
         $data['q'] = $q;
 
         $params = array();
-        
-        if($this->role_id != 1) {
+
+        if ($this->role_id != 1) {
             $params['user_id'] = $this->uid;
         }
         if (isset($q['status']) && $q['status'] != '') {
@@ -39,7 +39,7 @@ class Letter extends MY_Controller
         if (isset($q['uke_4']) && $q['uke_4'] != '') {
             $params['letters.uke_4_id'] = $q['uke_4'];
         }
-        
+
         $limit = 5;
 
         if (!$page) :
@@ -76,7 +76,7 @@ class Letter extends MY_Controller
         if ($_POST and $this->form_validation->run() == TRUE) {
 
             $lastno = $this->Letter_model->get_last(null, 1)->row_array();
-            
+
             if (pretty_date($lastno['letter_created_at'], 'Y', false) < date('Y') or count($lastno) == 0) {
                 $nomor = sprintf('%04d', '0001');
                 $no_trx = $nomor . '/PDT-' . date('Ym');
@@ -101,22 +101,15 @@ class Letter extends MY_Controller
             $this->Letter_model->insert($params);
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('letter');
-
         } else {
-            if($this->role_id == 1) {
+            if ($this->role_id == 1) {
                 $data['uke2'] = $this->Uke_model->get_uke2()->result();
             } else {
                 $data['uke4'] = $this->Uke_model->get_uke4(['uke_3_id' => $this->ukeid])->result();
             }
-            $data['uke'] = $this->Uke_model->get_uke_letter(['uke_3_id' => $this->ukeid])->row();     
-            
-            
-            // echo "<pre>";
-            // print_r ($data['uke']);
-            // echo "</pre>";
-            // die();
-            
-            $data['type'] = $this->Type_model->get()->result();            
+            $data['uke'] = $this->Uke_model->get_uke_letter(['uke_3_id' => $this->ukeid])->row();
+
+            $data['type'] = $this->Type_model->get(['type_status' => 1])->result();
             $data['title'] = 'Tambah Pengajuan Surat';
             $data['main'] = 'letter/add';
             $this->load->view('layout', $data);
@@ -126,13 +119,40 @@ class Letter extends MY_Controller
     function detail($id = null)
     {
         $letter = $this->Letter_model->get(['letter_id' => $id])->row();
-        if($_POST) {
-            if($this->role_id != 1) redirect('letter');
-            $params['letter_status'] = $this->input->post('status');
-            if($params['letter_status'] == 1) {
-                $params['letter_approval_date'] = date('Y-m-d H:i:s');
+        if ($_POST) {
+            if ($this->role_id != 1) redirect('letter');
+
+            $params['letter_note'] = $this->input->post('note');
+
+            if ($this->input->post('hukum') == 1 || $this->input->post('hukum') == 2) {
+                $params['letter_hukum'] = $this->input->post('hukum');
+                $params['letter_hukum_date'] = date('Y-m-d H:i:s');
+                $params['letter_status'] = $params['letter_hukum'];
+                $params['letter_code'] = 1;
             }
-            if($this->input->post('cek')) {
+
+            if ($this->input->post('sesditjen') == 1 || $this->input->post('sesditjen') == 2) {
+                $params['letter_sesditjen'] = $this->input->post('sesditjen');
+                $params['letter_sesditjen_date'] = date('Y-m-d H:i:s');
+                $params['letter_status'] = $params['letter_sesditjen'];
+                $params['letter_code'] = 2;
+            }
+
+            if ($this->input->post('kpa') == 1 || $this->input->post('kpa') == 2) {
+                $params['letter_kpa'] = $this->input->post('kpa');
+                $params['letter_kpa_date'] = date('Y-m-d H:i:s');
+                $params['letter_status'] = $params['letter_kpa'];
+                $params['letter_code'] = 3;
+            }
+
+            if ($this->input->post('dirjen') == 1 || $this->input->post('dirjen') == 2) {
+                $params['letter_dirjen'] = $this->input->post('dirjen');
+                $params['letter_dirjen_date'] = date('Y-m-d H:i:s');
+                $params['letter_status'] = $params['letter_dirjen'];
+                $params['letter_code'] = 4;
+            }
+
+            if ($this->input->post('cek')) {
                 $path_to_file = 'uploads/submit/' . $letter->letter_file;
                 unlink($path_to_file);
                 $full = 'SC_' . time() . rand(1111, 9999);
@@ -142,7 +162,7 @@ class Letter extends MY_Controller
             }
             $this->Letter_model->update($params, ['letter_id' => $id]);
             $this->session->set_flashdata('success', 'Data berhasil disimpan');
-            redirect('letter');
+            redirect('letter/detail/' . $id);
         } else {
             $data['letter'] = $letter;
             $data['title'] = 'Detail Pengajuan Surat';

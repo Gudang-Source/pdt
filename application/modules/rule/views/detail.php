@@ -8,6 +8,11 @@
                     <td><?php echo $rule->uke_2_name; ?></td>
                 </tr>
                 <tr>
+                    <td>Jenis SK</td>
+                    <td>:</td>
+                    <td><?php echo $rule->type_name; ?></td>
+                </tr>
+                <tr>
                     <td>Nomor Peraturan</td>
                     <td>:</td>
                     <td><?php echo $rule->rule_no; ?></td>

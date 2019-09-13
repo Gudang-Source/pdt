@@ -14,7 +14,7 @@ class Letter_model extends CI_Model
     function get($arr = null, $limit = null, $offset = null)
     {
         $this->db->order_by('letter_id', 'desc');
-        $this->db->select('letter_id, letter_no, letter_file, letter_fullname, letter_phone, user_fullname, letter_status, letter_approval_date, letter_created_at, letter_updated_at');
+        $this->db->select('letter_id, letter_no, letter_file, letter_fullname, letter_phone, user_fullname, letter_status, letter_hukum, letter_hukum_date, letter_sesditjen, letter_sesditjen_date, letter_kpa, letter_kpa_date, letter_dirjen, letter_dirjen_date, letter_note, letter_code, letter_created_at, letter_updated_at');
         $this->db->select('letters.uke_4_id, uke_4_name');
         $this->db->select('uke_4.uke_3_id, uke_3_name');
         $this->db->select('uke_3.uke_2_id, uke_2_name');

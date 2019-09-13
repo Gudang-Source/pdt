@@ -9,6 +9,7 @@ class Rule extends MY_Controller
         parent::__construct();
         if($this->role_id != 1) redirect('home');
         $this->load->model('uke/Uke_model');
+        $this->load->model('type/Type_model');
         $this->load->model('rule/Rule_model');
     }
 
@@ -66,6 +67,7 @@ class Rule extends MY_Controller
             $params['rule_year'] = $this->input->post('rule_year');
             $params['rule_date'] = $this->input->post('rule_date');
             $params['rule_status'] = $this->input->post('rule_status');
+            $params['type_id'] = $this->input->post('type_id');
             $params['user_id'] = $this->uid;
             $params['user_fullname'] = $this->fullname;
 
@@ -77,7 +79,8 @@ class Rule extends MY_Controller
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('rule');
         } else {
-            $data['uke2'] = $this->Uke_model->get_uke2()->result();
+            $data['tipe'] = $this->Type_model->get(['type_status' => 1])->result();
+            $data['uke2'] = $this->Uke_model->get_uke2()->result(); 
             $data['title'] = 'Tambah Lumbung Data';
             $data['main'] = 'rule/add';
             $this->load->view('layout', $data);
@@ -104,6 +107,7 @@ class Rule extends MY_Controller
             $params['rule_year'] = $this->input->post('rule_year');
             $params['rule_date'] = $this->input->post('rule_date');
             $params['rule_status'] = $this->input->post('rule_status');
+            $params['type_id'] = $this->input->post('type_id');
 
             $full = 'LC_' . time() . rand(1111, 9999);
             if (!empty($_FILES['rule_file']['name'])) {
@@ -116,6 +120,7 @@ class Rule extends MY_Controller
             redirect('rule');
         } else {
             $data['uke2'] = $this->Uke_model->get_uke2()->result();
+            $data['tipe'] = $this->Type_model->get(['type_status' => 1])->result();
             $data['rule'] = $rule;
             $data['title'] = 'Edit Lumbung Data';
             $data['main'] = 'rule/add';
