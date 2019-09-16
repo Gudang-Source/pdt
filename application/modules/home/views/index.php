@@ -12,7 +12,7 @@
 				<h4 style="margin-top:-10px">Data Peraturan</h4>
 				<hr>
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
+					<table class="table table-bordered table-sm table-hover">
 						<thead>
 							<tr>
 								<th>No</th>
