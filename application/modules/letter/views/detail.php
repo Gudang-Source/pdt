@@ -64,9 +64,14 @@
                     <tr>
                         <th rowspan="2">Tanggal Pengajuan</th>
                         <th colspan="2">Bagian Hukum</th>
-                        <th colspan="2">Sesditjen</th>
-                        <th colspan="2">KPA</th>
-                        <th colspan="2">Dirjen</th>
+                        <?php if ($letter->type_id == 2) : ?>
+                            <th colspan="2">Sesditjen</th>
+                        <?php else : ?>
+                            <th colspan="2">KPA</th>
+                        <?php endif ?>
+                        <?php if ($letter->type_id == 2) : ?>
+                            <th colspan="2">Dirjen</th>
+                        <?php endif ?>
                         <th rowspan="2">Catatan</th>
                     </tr>
                     <tr>
@@ -74,22 +79,28 @@
                         <th>Keterangan</th>
                         <th>Tanggal</th>
                         <th>Keterangan</th>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
+                        <?php if ($letter->type_id == 2) : ?>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
                     <td><?php echo pretty_date($letter->letter_created_at, 'd F Y H:i', false); ?></td>
                     <td><?php echo ($letter->letter_hukum_date != null) ? pretty_date($letter->letter_hukum_date, 'd-m-Y H:i', false) : '-'; ?></td>
                     <td><?php echo ($letter->letter_hukum == 1) ? 'Disetujui' : (($letter->letter_hukum == 2) ? 'Ditolak' : '-'); ?></td>
-                    <td><?php echo ($letter->letter_sesditjen_date != null) ? pretty_date($letter->letter_sesditjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
-                    <td><?php echo ($letter->letter_sesditjen == 1) ? 'Disetujui' : (($letter->letter_sesditjen == 2) ? 'Ditolak' : '-'); ?></td>
-                    <td><?php echo ($letter->letter_kpa_date != null) ? pretty_date($letter->letter_kpa_date, 'd-m-Y H:i', false) : '-'; ?></td>
-                    <td><?php echo ($letter->letter_kpa == 1) ? 'Disetujui' : (($letter->letter_kpa == 2) ? 'Ditolak' : '-'); ?></td>
-                    <td><?php echo ($letter->letter_dirjen_date != null) ? pretty_date($letter->letter_dirjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
-                    <td><?php echo ($letter->letter_dirjen == 1) ? 'Disetujui' : (($letter->letter_dirjen == 2) ? 'Ditolak' : '-') ?></td>
+                    <?php if ($letter->type_id == 2) : ?>
+                        <td><?php echo ($letter->letter_sesditjen_date != null) ? pretty_date($letter->letter_sesditjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                        <td><?php echo ($letter->letter_sesditjen == 1) ? 'Disetujui' : (($letter->letter_sesditjen == 2) ? 'Ditolak' : '-'); ?></td>
+                    <?php else : ?>
+                        <td><?php echo ($letter->letter_kpa_date != null) ? pretty_date($letter->letter_kpa_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                        <td><?php echo ($letter->letter_kpa == 1) ? 'Disetujui' : (($letter->letter_kpa == 2) ? 'Ditolak' : '-'); ?></td>
+                    <?php endif ?>
+
+                    <?php if ($letter->type_id == 2) : ?>
+                        <td><?php echo ($letter->letter_dirjen_date != null) ? pretty_date($letter->letter_dirjen_date, 'd-m-Y H:i', false) : '-'; ?></td>
+                        <td><?php echo ($letter->letter_dirjen == 1) ? 'Disetujui' : (($letter->letter_dirjen == 2) ? 'Ditolak' : '-') ?></td>
+                    <?php endif ?>
                     <td><?php echo $letter->letter_note; ?></td>
                 </tbody>
             </table>
@@ -118,30 +129,32 @@
                         </div>
                     <?php endif ?>
                     <?php if ($letter->letter_hukum == 1) : ?>
-                        <?php if ($letter->letter_sesditjen == 0) : ?>
-                            <div class="form-group">
-                                <label for="">Sesditjen</label>
-                                <select name="sesditjen" id="sesditjen" class="status form-control">
-                                    <option value="">---Pilih Persetujuan---</option>
-                                    <option value="1">Setuju</option>
-                                    <option value="2">Tolak</option>
-                                </select>
-                            </div>
+                        <?php if ($letter->type_id == 2) : ?>
+                            <?php if ($letter->letter_sesditjen == 0) : ?>
+                                <div class="form-group">
+                                    <label for="">Sesditjen</label>
+                                    <select name="sesditjen" id="sesditjen" class="status form-control">
+                                        <option value="">---Pilih Persetujuan---</option>
+                                        <option value="1">Setuju</option>
+                                        <option value="2">Tolak</option>
+                                    </select>
+                                </div>
+                            <?php endif ?>
+                        <?php else : ?>
+                            <?php if ($letter->letter_kpa == 0) : ?>
+                                <div class="form-group">
+                                    <label for="">KPA</label>
+                                    <select name="kpa" id="kpa" class="status form-control">
+                                        <option value="">---Pilih Persetujuan---</option>
+                                        <option value="1">Setuju</option>
+                                        <option value="2">Tolak</option>
+                                    </select>
+                                </div>
+                            <?php endif ?>
                         <?php endif ?>
                     <?php endif ?>
+                    
                     <?php if ($letter->letter_sesditjen == 1) : ?>
-                        <?php if ($letter->letter_kpa == 0) : ?>
-                            <div class="form-group">
-                                <label for="">KPA</label>
-                                <select name="kpa" id="kpa" class="status form-control">
-                                    <option value="">---Pilih Persetujuan---</option>
-                                    <option value="1">Setuju</option>
-                                    <option value="2">Tolak</option>
-                                </select>
-                            </div>
-                        <?php endif ?>
-                    <?php endif ?>
-                    <?php if ($letter->letter_kpa == 1) : ?>
                         <?php if ($letter->letter_dirjen == 0) : ?>
                             <div class="form-group">
                                 <label for="">Dirjen</label>
