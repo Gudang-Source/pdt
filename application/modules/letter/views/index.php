@@ -50,7 +50,6 @@
                         <th>UKE II</th>
                         <th>UKE III</th>
                         <th>UKE IV</th>
-                        <th>No Pengajuan</th>
                         <th>Status</th>
                         <th>Catatan</th>
                         <th>Opsi</th>
@@ -67,7 +66,6 @@
                                 <td><?php echo $row->uke_2_name ?></td>
                                 <td><?php echo $row->uke_3_name ?></td>
                                 <td><?php echo $row->uke_4_name ?></td>
-                                <td><?php echo $row->letter_no ?></td>
                                 <td>
                                     <span class="badge badge-<?php echo ($row->letter_status == 1) ? 'success' : (($row->letter_status == 0) ? 'warning' : 'danger') ?>">
                                         <?php echo ($row->letter_status == 1) ? 'Disetujui' : (($row->letter_status == 0) ? 'Diajukan' : 'Ditolak')  ?>
