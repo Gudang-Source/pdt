@@ -52,6 +52,7 @@
                         <th>UKE IV</th>
                         <th>No Pengajuan</th>
                         <th>Status</th>
+                        <th>Catatan</th>
                         <th>Opsi</th>
                     </tr>
                 </thead>
@@ -81,6 +82,7 @@
                                         <?php endif ?>
                                     </span>
                                 </td>
+                                <td><?php echo $row->letter_note ?></td>
                                 <td>
                                     <a href="<?php echo site_url('letter/detail/' . $row->letter_id) ?>" class="btn btn-info btn-xs"><i class="fas fa-eye"></i> Detail</a>
                                 </td>
