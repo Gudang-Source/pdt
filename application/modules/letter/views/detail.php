@@ -51,8 +51,10 @@
                 <?php endif ?>
             </table>
             <a href="<?php echo site_url('letter') ?>" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
-            <?php if ($this->role_id == 1 && $letter->letter_status == 0 || $letter->letter_status != 2) : ?>
-                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#approval"><i class="fa fa-list"></i> Opsi</button>
+            <?php if ($this->role_id == 1) : ?>
+                <?php if ($letter->letter_status != 2) : ?>
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#approval"><i class="fa fa-list"></i> Opsi</button>
+                <?php endif ?>
             <?php endif ?>
         </div>
     </div>
@@ -153,7 +155,7 @@
                             <?php endif ?>
                         <?php endif ?>
                     <?php endif ?>
-                    
+
                     <?php if ($letter->letter_sesditjen == 1) : ?>
                         <?php if ($letter->letter_dirjen == 0) : ?>
                             <div class="form-group">
