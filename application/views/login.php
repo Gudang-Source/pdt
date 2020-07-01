@@ -11,9 +11,9 @@
   <link rel="shortcut icon" href="<?php echo media_url() ?>/images/logopdt.png">
 
   <!-- App css -->
-  <link href="<?php echo media_url() ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo media_url() ?>/css/icons.min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo media_url() ?>/css/app.min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo media_url() ?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo media_url() ?>css/icons.min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo media_url() ?>css/app.min.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo media_url() ?>css/toastr.min.css" rel="stylesheet" type="text/css" />
 
   <style>
@@ -22,7 +22,7 @@
     }
 
     body {
-      background: url('../media/images/map.svg') no-repeat center center fixed;
+      background: url("<?php echo media_url('images/map.svg') ?>") no-repeat center center fixed;
     }
 
     .card {
@@ -66,10 +66,10 @@
       </div>
     </div>
   </div>
-  <script src="<?php echo media_url() ?>/js/vendor.min.js"></script>
-  <script src="<?php echo media_url() ?>/js/app.min.js"></script>
-  <script src="<?php echo media_url() ?>/js/jquery.validate.min.js"></script>
-  <script src="<?php echo media_url() ?>js/toastr.min.js"></script>
+  <script src="<?php echo media_url('js/vendor.min.js') ?>"></script>
+  <script src="<?php echo media_url('js/app.min.js') ?>"></script>
+  <script src="<?php echo media_url('js/jquery.validate.min.js') ?>"></script>
+  <script src="<?php echo media_url('js/toastr.min.js') ?>"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
